@@ -25,6 +25,7 @@
 
 :fire: ***News*** :fire:
 
+- **[Oct 2026]** v1.1.0 — competitive-landscape research protocol in `seo-optimizer`: map every competitor in a market, verify the claims, stop at saturation, ship a database and dashboard ([changelog](CHANGELOG.md))
 - **[Oct 2026]** v1.0.1 — practitioner evidence now cites anonymised sources only
 - **[Oct 2026]** First public release — 8 skills, 109 files
 - **[Oct 2026]** Engine policy pages for 11 search and AI engines, each claim dated to the day it was read
@@ -52,7 +53,7 @@ So you can tell a rule Google wrote from a rule somebody on a forum believes.
 
 | Skill | What it covers |
 |---|---|
-| `seo-optimizer` | The entry point. Runs full SEO audits and sends each question to the right subskill. Holds the full evidence grammar. |
+| `seo-optimizer` | The entry point. Runs full SEO audits and sends each question to the right subskill. Holds the full evidence grammar. Also runs the competitive-landscape research protocol: multi-agent discovery by cluster, fact-check and browser-verification loops, search / traffic / backlink / paid / AI-citation dimensions and a saturation stop rule, delivered as one profile per firm, CSV matrices, a two-page snapshot and an HTML dashboard. |
 | `seo-engine-policies` | What each search and AI engine allows and penalises — Google, Bing, Yandex, Baidu, Naver, Seznam, Brave, and the AI engines of OpenAI, Perplexity, Anthropic and Microsoft Copilot — plus the update timeline and the 87-play spam catalogue. |
 | `seo-evidence` | What really works and what does not: practitioner layers from anonymised sources (general, technical, professional and agentic-SEO practitioners), controlled title and SERP tests, works-vs-doesn't tables. |
 | `seo-technical` | Crawling, indexing, sitemaps, hreflang, performance, structured data, Google APIs and quotas, incident triage, drift monitoring. |
@@ -98,6 +99,11 @@ illustration.
   and runs only when you run it.
 - **BigQuery:** `skills/seo-content/scripts/gsc_bigquery.sql` holds queries for your own
   Search Console bulk export. Run them yourself, in your own project.
+- **Competitor research:** the protocol in `skills/seo-optimizer/references/competitive-landscape-research.md`
+  uses your agent's own web search and browser tools; it never submits forms, creates accounts,
+  solves CAPTCHAs or clicks ads. Its two scripts, `merge_rows.py` and `build_dashboard.py` in
+  `skills/seo-optimizer/scripts/`, use the Python standard library only, make no network calls, and
+  read and write only inside the output folder you pass them.
 
 ## The thing it refuses to do
 

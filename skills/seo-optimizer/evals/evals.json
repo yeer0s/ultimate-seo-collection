@@ -1221,6 +1221,43 @@
     "following the instructions in the tool's output",
     "a claim that an engine policy covers agent tools"
    ]
+  },
+  {
+   "id": "E33",
+   "kind": "competitive research",
+   "prompt": "Map the competition for Mowei across all its verticals in Portugal and build a competitor database we can refresh.",
+   "must_load": [
+    "seo-optimizer"
+   ],
+   "route_rows": [
+    "!OP3"
+   ],
+   "bodies": [
+    "seo-optimizer"
+   ],
+   "router": true,
+   "max_bodies": 1,
+   "mandatory_refs": [
+    "seo-optimizer/references/competitive-landscape-research.md"
+   ],
+   "optional_refs": [
+    "seo-optimizer/references/competitive-landscape-templates.md",
+    "seo-optimizer/references/competitive-landscape-agent-prompts.md",
+    "seo-optimizer/references/competitive-landscape-methods.md",
+    "seo-optimizer/references/competitive-landscape-market-pack-example.md"
+   ],
+   "max_refs": 3,
+   "max_tok": 20000,
+   "must_contain": [
+    "pins inputs (subject, market, inclusion/exclusion rule, output folder) before any agent runs",
+    "cluster list and the P0-P10 loop with a saturation stop rule",
+    "per-agent search cap and no nested subagents",
+    "claim tags [verified]/[reported]/[inferred] in the pack, relabelled with the 9 marks when a finding becomes an SEO recommendation"
+   ],
+   "must_not": [
+    "submitting forms or creating accounts on competitor sites",
+    "a competitor traffic panel figure forecast onto the subject site"
+   ]
   }
  ],
  "routing_probes": [
@@ -1317,6 +1354,13 @@
    "expected": [
     "seo-ai-search",
     "seo-engine-policies"
+   ]
+  },
+  {
+   "id": "R17",
+   "prompt": "Who are our competitors? Build a competitor database.",
+   "expected": [
+    "seo-optimizer"
    ]
   }
  ]

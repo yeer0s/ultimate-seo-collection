@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<style>
+:root{--bg:#fbfaf6;--panel:#ffffff;--ink:#1d2321;--muted:#5d6763;--line:#e3e1d8;--accent:#1f7a5c;--accent-soft:#e3f2ec;
+--t5:#b3261e;--t4:#d9822b;--t3:#c9a227;--t2:#6b8f71;--t1:#9aa5a0;--yes:#1f7a5c;--part:#c9a227;--no:#d4d1c7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141816;--panel:#1c211f;--ink:#e8ece9;--muted:#9aa5a0;--line:#2c3330;--accent:#5cc49b;--accent-soft:#1f332b;--no:#3a413e}}
+:root[data-theme="dark"]{--bg:#141816;--panel:#1c211f;--ink:#e8ece9;--muted:#9aa5a0;--line:#2c3330;--accent:#5cc49b;--accent-soft:#1f332b;--no:#3a413e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Georgia,"Iowan Old Style",serif}
+header{padding:28px 16px 12px;max-width:1280px;margin:0 auto}
+h1{font-size:28px;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:19px;margin:28px 0 10px}
+.sub{color:var(--muted);font-family:system-ui,sans-serif;font-size:13px}
+main{max-width:1280px;margin:0 auto;padding:0 16px 60px}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px 4px 14px 4px;padding:10px 14px;min-width:130px}
+.kpi b{display:block;font-size:24px}.kpi span{font:12px system-ui,sans-serif;color:var(--muted)}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 6px;font-family:system-ui,sans-serif}
+nav.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13px}
+nav.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font:13px/1.35 system-ui,sans-serif}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--panel);cursor:pointer;white-space:nowrap;font-weight:600}
+tr:hover td{background:var(--accent-soft)}
+.pill{display:inline-block;min-width:22px;text-align:center;border-radius:4px;padding:1px 6px;color:#fff;font-weight:700}
+.t5{background:var(--t5)}.t4{background:var(--t4)}.t3{background:var(--t3)}.t2{background:var(--t2)}.t1,.t0{background:var(--t1)}
+.cell{display:inline-block;width:18px;height:18px;border-radius:3px;text-align:center;font-size:11px;line-height:18px;color:#fff}
+.Y{background:var(--yes)}.P{background:var(--part)}.N{background:var(--no);color:var(--muted)}.Q{background:transparent;color:var(--muted)}
+.X{background:var(--accent)}
+input[type=search]{font:14px system-ui,sans-serif;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);width:min(420px,100%);margin:6px 0 10px}
+a{color:var(--accent)}
+.note{font:12px system-ui,sans-serif;color:var(--muted);max-width:420px}
+section{display:none}section.on{display:block}
+.rot th.v{writing-mode:vertical-rl;transform:rotate(180deg);height:150px;white-space:nowrap;vertical-align:bottom}
+</style>
+</head>
+<body>
+<header>
+<h1 id="h1">__TITLE__</h1>
+<div class="sub">Snapshot <span id="snapdate"></span> · read <a href="01-LANDSCAPE-SNAPSHOT.md">01-LANDSCAPE-SNAPSHOT.md</a> first · folder map <a href="00-README.md">00-README.md</a></div>
+<div class="kpis" id="kpis"></div>
+<nav class="tabs" id="tabs"></nav>
+</header>
+<main>
+<section id="s-top"><h2>Top-30 threats (cross-cluster judgement)</h2><div class="wrap"><table id="t-top"></table></div>
+<p class="note">Source: dimensions/threat-ranking-and-white-space.md. Threat 1–5; trend over 12–24 months.</p></section>
+<section id="s-master"><h2>All firms</h2><input type="search" id="q-master" placeholder="Filter (name, vertical, regulator, model…)"><div class="wrap"><table id="t-master"></table></div></section>
+<section id="s-cov"><h2>Coverage: firm × subject vertical</h2><input type="search" id="q-cov" placeholder="Filter"><div class="wrap rot"><table id="t-cov"></table></div></section>
+<section id="s-feat"><h2>Capabilities: firm × feature</h2><input type="search" id="q-feat" placeholder="Filter"><div class="wrap rot"><table id="t-feat"></table></div>
+<p class="note">Y yes · P partial · N no · ? unknown · – not applicable. Subject row from the baseline file in dimensions/.</p></section>
+<section id="s-tri"><h2>Traffic, triangulated (best estimate + range + confidence)</h2><input type="search" id="q-tri" placeholder="Filter"><div class="wrap"><table id="t-tri"></table></div><p class="note">A = audited/self-reported with source · B = 2+ independent sources within ±35 % · C = single panel · D = rank only. CrUX = real Chrome-user popularity buckets. Source: dimensions/traffic-triangulated.md</p></section>
+<section id="s-links"><h2>Backlinks & authority</h2><input type="search" id="q-links" placeholder="Filter"><div class="wrap"><table id="t-links"></table></div><p class="note">Ahrefs public DR / linking sites; Common Crawl web graph Jul–Sep 2026 referring domains. Source: dimensions/backlinks-authority.md</p></section>
+<section id="s-traffic"><h2>Traffic, apps & audience (estimates)</h2><input type="search" id="q-traffic" placeholder="Filter"><div class="wrap"><table id="t-traffic"></table></div><p class="note">Estimates — see the traffic dimension file for grades and sources. Store ratings pooled across countries. Source: dimensions/traffic-apps-audience.md</p></section>
+<section id="s-trust"><h2>Trust & reputation</h2><input type="search" id="q-trust" placeholder="Filter"><div class="wrap"><table id="t-trust"></table></div></section>
+</main>
+<script>
+const DATA=/*__DATA__*/null;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pill=v=>{const n=parseInt(v)||0;return `<span class="pill t${Math.min(5,n)}">${esc(v||"–")}</span>`};
+const cell=v=>{v=(v||"").trim();const c=v==="Y"?"Y":v==="P"?"P":v==="N"?"N":"Q";return `<span class="cell ${c}">${esc(v||"·")}</span>`};
+const nm=(r,label)=>r._link?`<a href="${esc(r._link)}">${esc(label)}</a>`:esc(label);
+const S=DATA.stats;document.getElementById("snapdate").textContent=DATA.date;
+document.getElementById("kpis").innerHTML=[[S.profiles,"PT profiles"],[S.intl,"international benchmarks"],[S.supp,"supplements"],[S.rows,"firms in matrix"]].map(([n,l])=>`<div class="kpi"><b>${n}</b><span>${l}</span></div>`).join("");
+const tabs=[["s-top","Top threats"],["s-master","All firms"],["s-cov","Coverage"],["s-feat","Capabilities"],["s-tri","Traffic (graded)"],["s-links","Backlinks"],["s-traffic","Apps & audience"],["s-trust","Trust"]];
+const nav=document.getElementById("tabs");
+function show(id){document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));nav.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.id===id));try{localStorage.setItem("mc-tab",id)}catch(e){}}
+const has={"s-feat":DATA.features,"s-tri":DATA.tri,"s-links":DATA.links,"s-traffic":DATA.traffic,"s-trust":DATA.trust,"s-top":DATA.top};
+tabs.filter(([id])=>!(id in has)||(has[id]&&has[id].length)).forEach(([id,l])=>{const b=document.createElement("button");b.textContent=l;b.dataset.id=id;b.onclick=()=>show(id);nav.appendChild(b)});
+function table(el,cols,rows,render){
+  let sortKey=null,dir=1,filter="";
+  function draw(){
+    let rs=rows.filter(r=>!filter||JSON.stringify(r).toLowerCase().includes(filter));
+    if(sortKey)rs=[...rs].sort((a,b)=>{const x=a[sortKey]??"",y=b[sortKey]??"";const nx=parseFloat(x),ny=parseFloat(y);return(!isNaN(nx)&&!isNaN(ny)?nx-ny:String(x).localeCompare(String(y)))*dir});
+    el.innerHTML="<thead><tr>"+cols.map(c=>`<th data-k="${c.k}" class="${c.v?'v':''}">${esc(c.l)}</th>`).join("")+"</tr></thead><tbody>"+rs.map(r=>"<tr>"+cols.map(c=>`<td>${render(c,r)}</td>`).join("")+"</tr>").join("")+"</tbody>";
+    el.querySelectorAll("th").forEach(th=>th.onclick=()=>{const k=th.dataset.k;dir=sortKey===k?-dir:-1;sortKey=k;draw()});
+  }
+  draw();return f=>{filter=f.toLowerCase();draw()};
+}
+table(document.getElementById("t-top"),[{k:"rank",l:"#"},{k:"firm",l:"Firm"},{k:"threat",l:"Threat"},{k:"where",l:"Vertical(s)"},{k:"why",l:"Why"},{k:"trend",l:"Trend"}],DATA.top,(c,r)=>c.k==="threat"?pill(r.threat):c.k==="why"?`<span class="note">${esc(r.why)}</span>`:esc(r[c.k]));
+const mcols=[["name","Firm"],["threat_to_subject","Threat"],["type","Type"],["archetype","Archetype"],["verticals","Verticals"],["regulatory","Regulatory"],["business_model","Business model"],["owner_group","Owner"],["revenue_eur","Revenue €"],["revenue_year","Year"],["traffic_monthly_est","Traffic/mo"],["complaint_index","Complaint index"],["trustpilot","Trustpilot"],["gated_results","Gated?"],["country","Country"],["cluster","Cluster"]].map(([k,l])=>({k,l}));
+const fm=table(document.getElementById("t-master"),mcols,DATA.master,(c,r)=>c.k==="name"?nm(r,r.name||r.slug):c.k==="threat_to_subject"?pill(r.threat_to_subject):(["business_model","regulatory"].includes(c.k)?`<span class="note">${esc(r[c.k])}</span>`:esc(r[c.k])));
+document.getElementById("q-master").oninput=e=>fm(e.target.value);
+const vk=Object.keys(DATA.coverage[0]||{}).filter(k=>!["slug","name","threat"].includes(k));
+const fc=table(document.getElementById("t-cov"),[{k:"name",l:"Firm"},{k:"threat",l:"Threat"}].concat(vk.map(k=>({k,l:k,v:1}))),DATA.coverage,(c,r)=>c.k==="name"?esc(r.name):c.k==="threat"?pill(r.threat):(r[c.k]?'<span class="cell X">✓</span>':""));
+document.getElementById("q-cov").oninput=e=>fc(e.target.value);
+const fk=Object.keys(DATA.features[0]||{}).filter(k=>!["group","slug","name","evidence_note","_link"].includes(k));
+const ff=table(document.getElementById("t-feat"),[{k:"name",l:"Firm"},{k:"group",l:"Group"}].concat(fk.map(k=>({k,l:k.replace(/_/g," "),v:1}))).concat([{k:"evidence_note",l:"Evidence"}]),DATA.features,(c,r)=>c.k==="name"?nm(r,r.name):c.k==="group"?esc(r.group):c.k==="evidence_note"?`<span class="note">${esc(r.evidence_note)}</span>`:cell(r[c.k]));
+document.getElementById("q-feat").oninput=e=>ff(e.target.value);
+const tk=[["name","Firm"],["role","Role"],["pq_index","Complaint index"],["pq_label","Label"],["pq_resolution_pct","Resolved %"],["pq_category_rank","Category rank"],["trustpilot_score","Trustpilot"],["trustpilot_reviews","Reviews"],["google_rating","Google"],["app_ios","iOS"],["app_android","Android"],["awards","Awards"],["complaint_themes","Complaint themes"]].map(([k,l])=>({k,l}));
+const ft=table(document.getElementById("t-trust"),tk,DATA.trust,(c,r)=>["awards","complaint_themes","role"].includes(c.k)?`<span class="note">${esc(r[c.k])}</span>`:esc(r[c.k]));
+document.getElementById("q-trust").oninput=e=>ft(e.target.value);
+const xk=[["threat_rank","Threat #"],["firm","Firm"],["domain","Domain"],["visits_mo","Visits/mo"],["pt_rank","PT rank"],["mom_change","MoM"],["traffic_alt_estimates","Other estimates"],["ios_rating","iOS"],["ios_count","iOS #"],["android_rating","Android"],["android_installs","Installs"],["facebook_followers","Facebook"],["youtube_subscribers","YouTube"],["notes","Notes"]].map(([k,l])=>({k,l}));
+const fx=table(document.getElementById("t-traffic"),xk,DATA.traffic,(c,r)=>["notes","traffic_alt_estimates"].includes(c.k)?`<span class="note">${esc(r[c.k])}</span>`:esc(r[c.k]));
+document.getElementById("q-traffic").oninput=e=>fx(e.target.value);
+const tk2=[["domain","Domain"],["best_monthly_visits","Best visits/mo"],["low","Low"],["high","High"],["confidence","Grade"],["crux_pt_rank_bucket","CrUX PT bucket"],["tranco_rank","Tranco"],["similarweb_monthly","Similarweb"],["semrush_or_ahrefs_organic","Semrush/Ahrefs organic"],["audited_or_self_reported","Audited / self-reported"],["sources_count","# sources"],["notes","Notes"]].map(([k,l])=>({k,l}));
+const ftr=table(document.getElementById("t-tri"),tk2,DATA.tri,(c,r)=>["notes","audited_or_self_reported"].includes(c.k)?`<span class="note">${esc(r[c.k])}</span>`:esc(r[c.k]));
+document.getElementById("q-tri").oninput=e=>ftr(e.target.value);
+const lk=[["domain","Domain"],["role","Role"],["ahrefs_dr","Ahrefs DR"],["ahrefs_linking_websites","Linking sites"],["cc_ref_domains","CC ref. domains"],["cc_gov_referrers_n","Gov refs"],["cc_media_referrers_n","Media refs"],["openpagerank_score","Open PageRank"],["wikipedia_pt_pages","Wiki PT"],["cc_top_referrers","Top referrers"]].map(([k,l])=>({k,l}));
+const fl=table(document.getElementById("t-links"),lk,DATA.links,(c,r)=>["cc_top_referrers","role"].includes(c.k)?`<span class="note">${esc(r[c.k])}</span>`:esc(r[c.k]));
+document.getElementById("q-links").oninput=e=>fl(e.target.value);
+let start="s-top";try{start=localStorage.getItem("mc-tab")||start}catch(e){}
+show(start);
+</script>
+</body>
+</html>

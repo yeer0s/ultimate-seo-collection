@@ -1,7 +1,7 @@
 ---
 name: seo-optimizer
 description: >-
-  Routes search-visibility work to the right SEO subskill and runs full SEO audits. Use for a full or pre-launch SEO audit of a site, page or route, or when no seo- subskill clearly fits; a question led by one area (engine policies, evidence, technical, content, authority, AI search, strategy), even one that touches a second, loads those subskills directly instead. Triggers: "audit/review our SEO", "pre-launch SEO", "SEO health check", "why isn't this ranking". Answers partial questions and names adjacent gaps. Holds the full evidence grammar; each seo- subskill carries its short form. Not for paid-ads tracking, legal review, or brand work with no search component.
+  Routes search-visibility work to the right SEO subskill, runs full SEO audits, and runs the competitive-landscape research protocol (multi-agent cluster discovery, fact-check and browser-verification loops, SERP/traffic/backlink/AI-citation dimensions, saturation stop rule, CSV matrices, HTML dashboard). Use for a full or pre-launch SEO audit of a site, page or route; to "map the competition", build or refresh a competitor database, or run a landscape analysis; or when no seo- subskill clearly fits; a question led by one area (engine policies, evidence, technical, content, authority, AI search, strategy), even one that touches a second, loads those subskills directly instead. Triggers: "audit/review our SEO", "pre-launch SEO", "SEO health check", "why isn't this ranking". Answers partial questions and names adjacent gaps. Holds the full evidence grammar; each seo- subskill carries its short form. Not for paid-ads tracking (beyond a competitor study), legal review, or brand work with no search component.
 ---
 
 # seo-optimizer
@@ -97,6 +97,7 @@ Full ledger, six-part replication recipe, 182-entry catalogue: load skill `seo-e
 | links, PR, E-E-A-T, brand, Reddit/YouTube, disavow | `seo-authority` | AU1–AU2 |
 | AI answer engines, AI crawler access, llms.txt, AI-citation tracking | `seo-ai-search` | AI1–AI7 |
 | strategy, roadmap, ideas, resources | `seo-strategy` | ST1–ST5 |
+| competitors, competitor database, landscape study, "who are we up against" | this skill | OP3 |
 
 **Multi-part order:** policy gate → evidence → implementation (500 city pages: `seo-engine-policies` → `seo-evidence` → `seo-content`), each stage opening only its own rows. A full audit is OP1 plus ≤3 subskill rows.
 
@@ -106,6 +107,7 @@ Full ledger, six-part replication recipe, 182-entry catalogue: load skill `seo-e
 |---|---|---|
 | OP1 | full audit, report template, lanes, delivery gates | [audit-output](references/audit-output-and-templates.md) (+ [part 2](references/audit-output-and-templates-2.md)) + [measurement-gates](references/measurement-gates-and-checklists.md) |
 | OP2 | paid-API spend guard, field allowlists, prompt-file tests | [measurement-gates part 2](references/measurement-gates-and-checklists-2.md) |
+| OP3 | map the competition, competitor database, landscape analysis, refresh a competitor study | [competitive-landscape-research](references/competitive-landscape-research.md); per phase only: [agent prompts](references/competitive-landscape-agent-prompts.md) · [templates](references/competitive-landscape-templates.md) · [methods](references/competitive-landscape-methods.md) · [new-market pack](references/competitive-landscape-market-pack-example.md); scripts `scripts/merge_rows.py`, `scripts/build_dashboard.py` |
 
 ## Final notes
 
